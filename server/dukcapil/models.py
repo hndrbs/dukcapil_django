@@ -29,10 +29,10 @@ class DukcapilData (models.Model):
   maiden_name = models.CharField(max_length=30)
   birth_date = models.DateField(auto_now=False, auto_now_add=False)
   gender = models.CharField(max_length=10, choices=[
-    ('Male', 'male'), ('Female', 'female')
+    ('male', 'Male'), ('female', 'Female')
   ])
-  religion = models.OneToOneField(Religion, on_delete=models.CASCADE)
-  marital_status = models.OneToOneField(MaritalStatus, on_delete=models.CASCADE)
+  religion = models.ForeignKey(Religion, on_delete=models.CASCADE)
+  marital_status = models.ForeignKey(MaritalStatus, on_delete=models.CASCADE)
 
   class Meta :
     db_table = 'm_dukcapil_data'
