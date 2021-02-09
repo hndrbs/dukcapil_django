@@ -6,4 +6,4 @@ class DukcapilDataSerializer(serializers.ModelSerializer):
   
   class Meta:
     model = DukcapilData
-    fields = ['nik', 'name', 'maiden_name', 'birth_date', 'gender', 'religion', 'marital_status' ]
+    fields = ['nik', 'name', 'maiden_name', 'birth_date', 'gender', 'religion_id', 'marital_status' ]
