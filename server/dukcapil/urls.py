@@ -10,5 +10,4 @@ urlpatterns = [
     # path('api/', include(router.urls))
     path('api/<int:dukcapil_data_id>', views.dukcapilDetail),
     path('api/', views.dukcapilList),
-
 ]

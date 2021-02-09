@@ -1,8 +1,9 @@
 from django.shortcuts import render
-from django.http import  HttpResponse, JsonResponse
+from django.http import  HttpResponse, JsonResponse, Http404
 from .serializers import DukcapilDataSerializer
 from .models import DukcapilData, Religion, MaritalStatus
 from rest_framework import viewsets, status
+from rest_framework.response import Response
 from rest_framework.decorators import api_view
 from rest_framework.parsers import JSONParser
 
@@ -36,23 +37,29 @@ def dukcapilList (request):
 @api_view(['GET', 'PUT', 'DELETE'])
 def dukcapilDetail (request, dukcapil_data_id):
   # still need error handling here
+  try:
     oneDukcapil = DukcapilData.objects.get(dukcapil_data_id=dukcapil_data_id)
-    if request.method == 'GET':
-      # get one dukcapil
-      dukcapil_serializer = DukcapilDataSerializer(oneDukcapil)
-      return JsonResponse(dukcapil_serializer.data, safe=False)
-    
-    elif request.method == 'PUT':
-    # update one dukcapil
-      updatedData = JSONParser().parse(request)
-      dukcapil_serializer = DukcapilDataSerializer(oneDukcapil, data=updatedData)
-      if dukcapil_serializer.is_valid():
-        dukcapil_serializer.save()
-        return JsonResponse(dukcapil_serializer.data, status=status.HTTP_200_OK, safe=False)
-      return JsonResponse(dukcapil_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-    
-    elif request.method == 'DELETE':
-      # delete one dukcapil
-      copyOfDukcapil = DukcapilDataSerializer(oneDukcapil)
-      oneDukcapil.delete()
-      return JsonResponse(copyOfDukcapil.data, safe=False)
+  except:
+    # return Response(status=status.HTTP_404_NOT_FOUND)
+    raise Http404
+    # return HttpResponse('<h2> Data Not found </h2>')
+
+  if request.method == 'GET':
+    # get one dukcapil
+    dukcapil_serializer = DukcapilDataSerializer(oneDukcapil)
+    return JsonResponse(dukcapil_serializer.data, safe=False)
+  
+  elif request.method == 'PUT':
+  # update one dukcapil
+    updatedData = JSONParser().parse(request)
+    dukcapil_serializer = DukcapilDataSerializer(oneDukcapil, data=updatedData)
+    if dukcapil_serializer.is_valid():
+      dukcapil_serializer.save()
+      return JsonResponse(dukcapil_serializer.data, status=status.HTTP_200_OK, safe=False)
+    return JsonResponse(dukcapil_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+  
+  elif request.method == 'DELETE':
+    # delete one dukcapil
+    copyOfDukcapil = DukcapilDataSerializer(oneDukcapil)
+    oneDukcapil.delete()
+    return JsonResponse(copyOfDukcapil.data, safe=False)
