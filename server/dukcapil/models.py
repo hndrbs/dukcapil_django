@@ -3,6 +3,7 @@ from django.db import models
 # Create your models here.
 
 class Religion (models.Model):
+  religion_id = models.AutoField(primary_key=True)
   religion_name = models.CharField(max_length=50)
   
   def __str__(self):
@@ -12,6 +13,7 @@ class Religion (models.Model):
     db_table = 'm_religion'
 
 class MaritalStatus (models.Model):
+  marital_status_id = models.AutoField(primary_key=True)
   marital_status_desc = models.CharField(max_length=50)
 
   class Meta:
@@ -21,13 +23,16 @@ class MaritalStatus (models.Model):
       return self.marital_status_desc
 
 class DukcapilData (models.Model):
+  dukcapil_data_id = models.AutoField(primary_key=True)
   nik = models.CharField(max_length=50)
   name = models.CharField(max_length=30)
   maiden_name = models.CharField(max_length=30)
   birth_date = models.DateField(auto_now=False, auto_now_add=False)
-  gender = models.CharField(max_length=10)
-  religion_id = models.OneToOneField('Religion', on_delete=models.CASCADE)
-  marital_status = models.OneToOneField('MaritalStatus', on_delete=models.CASCADE)
+  gender = models.CharField(max_length=10, choices=[
+    ('Male', 'male'), ('Female', 'female')
+  ])
+  religion = models.OneToOneField(Religion, on_delete=models.CASCADE)
+  marital_status = models.OneToOneField(MaritalStatus, on_delete=models.CASCADE)
 
   class Meta :
     db_table = 'm_dukcapil_data'
