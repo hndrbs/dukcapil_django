@@ -6,14 +6,16 @@ import {
   IonAlert
   } from '@ionic/react';
 import './DukcapilListItem.css';
-import { trashBinOutline } from 'ionicons/icons'
+import { trashBinOutline, pencil } from 'ionicons/icons'
 import { useState } from 'react'
 import { useDispatch } from 'react-redux'
 import { deleteDukcapil } from '../store/actions'
+import ModalForm from './ModalForm'
 
 const DukcapilListItem = ({ dukcapil }) => {
   const dispatch = useDispatch()
   const [showAlert, setShowAlert] = useState(false)
+  const [showModalEdit, setShowModalEdit] = useState(false)
 
 
   return (
@@ -48,10 +50,19 @@ const DukcapilListItem = ({ dukcapil }) => {
           ]}
         />
       </IonItem>
+      <ModalForm
+        isOpen={showModalEdit}
+        closeModal={() => setShowModalEdit(false)}
+        dukcapil={dukcapil}
+      />
     <span className="icon">
       <IonIcon 
         icon={trashBinOutline}
         onClick={() => setShowAlert(true)}
+      />
+      <IonIcon 
+        icon={pencil}
+        onClick={() => setShowModalEdit(true)}
       />
     </span>
     </div>

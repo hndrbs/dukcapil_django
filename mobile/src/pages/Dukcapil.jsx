@@ -8,17 +8,22 @@ import {
   IonRefresherContent,
   IonTitle,
   IonToolbar,
-  useIonViewWillEnter
+  useIonViewWillEnter,
+  IonIcon,
+  IonButton
 } from '@ionic/react';
 import { useEffect, useState } from 'react'
-import './Home.css';
+import './Dukcapil.css';
 import { useSelector, useDispatch } from 'react-redux'
 import DukcapilListItem from '../components/DukcapilListItem';
 import { fetchDukcapil } from '../store/actions'
+import { addOutline } from 'ionicons/icons'
+import ModalForm from '../components/ModalForm'
 
 const Dukcapil = () => {
   
   const [data, setData] = useState([])
+  const [showAddModal, setShowAddModal] = useState(false)
   const { dukcapilData, loading, error } = useSelector(state => state.dukcapilReducer)
   const dispatch = useDispatch()
 
@@ -27,7 +32,6 @@ const Dukcapil = () => {
   });
 
   useEffect(() => {
-    console.log('berubah')
     if (dukcapilData) {
       setData(dukcapilData)
     }
@@ -75,6 +79,16 @@ const Dukcapil = () => {
             </IonTitle>
           </IonToolbar>
         </IonHeader>
+        <IonButton
+          onClick={() => setShowAddModal(true)}
+          id="add-btn"
+        >
+          <IonIcon icon={addOutline}/>
+        </IonButton>
+        <ModalForm
+          isOpen={showAddModal}
+          closeModal={() => setShowAddModal(false)}
+        />
         <IonList>
           {
             data.length

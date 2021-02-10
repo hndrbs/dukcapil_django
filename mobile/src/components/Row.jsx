@@ -1,15 +1,16 @@
 const Row = ({ tlabel, tdata }) => (
-  <>
+  <tbody>
     <tr>
-      <th
+      <td
         style={{
           textAlign:'left',
-          paddingRight: '1rem'
+          paddingRight: '1rem',
+          fontWeight: 'bold'
         }}
-      >{tlabel}</th>
+      >{tlabel}</td>
       <td>{tdata}</td>
     </tr>
-  </>
+  </tbody>
 )
 
 export default Row

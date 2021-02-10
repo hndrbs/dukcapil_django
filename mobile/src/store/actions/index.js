@@ -1,13 +1,17 @@
-import fetchDukcapil from './fetchDukcapil'
+import fetchMaritalStatuses from './fetchMaritalStatuses'
 import fetchDukcapilDetail from './fetchDukcapilDetail'
 import deleteDukcapil from './deleteDukcapil'
-import fetchMaritalStatuses from './fetchMaritalStatuses'
 import fetchReligions from './fetchReligions'
+import fetchDukcapil from './fetchDukcapil'
+import editDukcapil from './editDukcapil'
+import addDukcapil from './addDukcapil'
 
 export {
   fetchMaritalStatuses,
+  fetchDukcapilDetail,
   fetchReligions,
   fetchDukcapil,
-  fetchDukcapilDetail,
-  deleteDukcapil
+  deleteDukcapil,
+  editDukcapil,
+  addDukcapil
 }

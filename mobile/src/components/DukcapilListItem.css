@@ -24,9 +24,9 @@ ion-item p {
   float: right;
   align-items: center;
   display: flex;
-  justify-content: start;
+  justify-content: space-between;
   margin-right: 10px;
-  width: 10%;
+  width: 15%;
 }
 
 ion-item ion-icon {
@@ -62,5 +62,5 @@ ion-item ion-note.md {
 }
 
 .item-wrapper ion-item {
-  width: 90%;
+  width: 85%;
 }

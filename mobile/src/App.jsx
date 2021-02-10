@@ -31,7 +31,7 @@ const App = () => {
   useEffect(() => {
     dispatch(fetchReligions())
     dispatch(fetchMaritalStatuses())
-  }, [])
+  })
 
   return (
     <IonApp>
