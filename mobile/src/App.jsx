@@ -1,8 +1,6 @@
 import { Redirect, Route } from 'react-router-dom';
 import { IonApp, IonRouterOutlet } from '@ionic/react';
 import { IonReactRouter } from '@ionic/react-router';
-import Home from './pages/Home';
-import ViewMessage from './pages/ViewMessage';
 import Dukcapil from './pages/Dukcapil'
 import DukcapilDetail from './pages/DukcapilDetail'
 
@@ -37,12 +35,6 @@ const App = () => (
         </Route>
         <Route path="/dukcapil/:id" exact={true}>
           <DukcapilDetail  />
-        </Route>
-        <Route path="/home" exact={true}>
-          <Home />
-        </Route>
-        <Route path="/message/:id">
-           <ViewMessage />
         </Route>
       </IonRouterOutlet>
     </IonReactRouter>

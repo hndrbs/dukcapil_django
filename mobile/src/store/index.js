@@ -1,8 +1,8 @@
 import { createStore, applyMiddleware, combineReducers } from 'redux'
 import thunk from 'redux-thunk'
-import { reducer, detailReducer } from './reducers'
+import { dukcapilReducer, detailReducer } from './reducers'
 
-const rootReducer = combineReducers({ reducer, detailReducer })
+const rootReducer = combineReducers({ dukcapilReducer, detailReducer })
 
 const store = createStore(rootReducer, applyMiddleware(thunk))
 

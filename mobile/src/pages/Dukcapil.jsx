@@ -1,7 +1,3 @@
-import DukcapilListItem from '../components/DukcapilList';
-// import { useState } from 'react';
-// import { Message, getMessages } from '../data/messages';
-import { fetchDukcapil } from '../store/actions'
 import {
   IonContent,
   IonHeader,
@@ -14,19 +10,28 @@ import {
   IonToolbar,
   useIonViewWillEnter
 } from '@ionic/react';
+import { useEffect, useState } from 'react'
 import './Home.css';
 import { useSelector, useDispatch } from 'react-redux'
+import DukcapilListItem from '../components/DukcapilListItem';
+import { fetchDukcapil } from '../store/actions'
 
 const Dukcapil = () => {
-
-  // const [messages, setMessages] = useState<Message[]>([]);
-  // const [data, setData] = useState<[]>([])
-  const { dukcapilData, loading, error } = useSelector(state => state.reducer)
+  
+  const [data, setData] = useState([])
+  const { dukcapilData, loading, error } = useSelector(state => state.dukcapilReducer)
   const dispatch = useDispatch()
 
   useIonViewWillEnter(() => {
     dispatch(fetchDukcapil())
   });
+
+  useEffect(() => {
+    console.log('berubah')
+    if (dukcapilData) {
+      setData(dukcapilData)
+    }
+  }, [dukcapilData])
 
   const refresh = (e) => {
     setTimeout(() => {
@@ -72,8 +77,8 @@ const Dukcapil = () => {
         </IonHeader>
         <IonList>
           {
-            dukcapilData.length
-            ? dukcapilData.map(dukcapil => (
+            data.length
+            ? data.map(dukcapil => (
                 <DukcapilListItem
                   dukcapil={dukcapil}
                   key={dukcapil.dukcapil_data_id}

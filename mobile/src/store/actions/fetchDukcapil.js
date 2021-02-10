@@ -6,13 +6,13 @@ const fetchDukcapil = () => dispatch => {
     method: 'GET',
   })
     .then(({ data }) => {
-      return dispatch({
+      dispatch({
         type: 'dukcapil/setDukcapil',
         payload: data
       })
     })
     .catch(err => {
-      return dispatch({
+      dispatch({
         type: 'dukcapil/setError',
         payload: err
       })

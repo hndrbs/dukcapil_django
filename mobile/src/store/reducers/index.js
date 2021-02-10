@@ -1,7 +1,7 @@
 import detailReducer from './detailReducer'
-import reducer from './reducer'
+import dukcapilReducer from './dukcapilReducer'
 
 export {
   detailReducer,
-  reducer
+  dukcapilReducer
 }

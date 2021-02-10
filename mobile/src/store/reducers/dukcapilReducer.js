@@ -4,7 +4,7 @@ const initState = {
   error: null
 }
 
-const reducer = (state=initState, action) => {
+const dukcapilReducer = (state=initState, action) => {
   switch (action.type) {
     case 'dukcapil/setDukcapil':
       return {...state, dukcapilData: action.payload, error: null, loading: false}
@@ -17,4 +17,4 @@ const reducer = (state=initState, action) => {
   }
 }
 
-export default reducer
+export default dukcapilReducer
