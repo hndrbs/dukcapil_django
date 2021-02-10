@@ -2,7 +2,7 @@ import axiosInstance from './config'
 
 const fetchDukcapil = () => dispatch => {
   axiosInstance({
-    url: '/',
+    url: '/dukcapil/',
     method: 'GET',
   })
     .then(({ data }) => {

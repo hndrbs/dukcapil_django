@@ -2,7 +2,7 @@ import axiosInstance from './config'
 
 const deleteDukcapil = id => (dispatch, getState) => (
   axiosInstance({
-    url: `/${id}`,
+    url: `/dukcapil/${id}/`,
     method: 'DELETE'
   })
     .then(() => {

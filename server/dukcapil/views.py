@@ -1,22 +1,14 @@
 from django.shortcuts import render
 from django.http import  HttpResponse, JsonResponse, Http404
-from .serializers import DukcapilDataSerializer
+from .serializers import DukcapilDataSerializer, ReligionSerializer, MaritalStatusSerializer
 from .models import DukcapilData, Religion, MaritalStatus
-from rest_framework import viewsets, status
+from rest_framework import status, viewsets
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
 from rest_framework.parsers import JSONParser
 
 
 # Create your views here.
-
-def index(request):
-  # return HttpResponse("gasss")
-  return render(request, 'index.html')
-
-class DukcapilViewSet(viewsets.ModelViewSet):
-  queryset = DukcapilData.objects.all()
-  serializer_class = DukcapilDataSerializer
 
 @api_view(['GET', 'POST'])
 def dukcapilList (request):
@@ -63,3 +55,16 @@ def dukcapilDetail (request, dukcapil_data_id):
     copyOfDukcapil = DukcapilDataSerializer(oneDukcapil)
     oneDukcapil.delete()
     return JsonResponse(copyOfDukcapil.data, safe=False)
+
+
+@api_view(['GET'])
+def religionList(request):
+  religions = Religion.objects.all()
+  religionsSerializer = ReligionSerializer(religions, many=True)
+  return JsonResponse(religionsSerializer.data, safe=False)
+
+@api_view(['GET'])
+def maritalStatusList(request):
+  allMaritalStatus = MaritalStatus.objects.all()
+  allMaritalStatusSerializer = MaritalStatusSerializer(allMaritalStatus, many=True)
+  return JsonResponse(allMaritalStatusSerializer.data, safe=False)

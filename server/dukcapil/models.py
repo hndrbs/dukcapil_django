@@ -31,8 +31,16 @@ class DukcapilData (models.Model):
   gender = models.CharField(max_length=10, choices=[
     ('male', 'Male'), ('female', 'Female')
   ])
-  religion_id = models.ForeignKey(Religion, on_delete=models.CASCADE)
-  marital_status = models.ForeignKey(MaritalStatus, on_delete=models.CASCADE, to_field='marital_status_desc')
+  religion_id = models.ForeignKey(
+    Religion,
+    on_delete=models.CASCADE,
+    to_field='religion_id'
+  )
+  marital_status = models.ForeignKey(
+    MaritalStatus,
+    on_delete=models.CASCADE,
+    to_field='marital_status_desc'
+  )
 
   class Meta :
     db_table = 'm_dukcapil_data'

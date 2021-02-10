@@ -1,5 +1,3 @@
-// import { useState } from 'react';
-// import { Message, getMessage } from '../data/messages';
 import {
   IonBackButton,
   IonButtons,
@@ -17,14 +15,19 @@ import { useParams } from 'react-router';
 import './ViewMessage.css';
 
 const DukcapilDetail = () => {
-  // const [message, setMessage] = useState();
   const { id } = useParams()
   const { dukcapilDetailData, loading, error } = useSelector(state => state.detailReducer)
+  const { religions, error: errorMixState } = useSelector(state => state.religionAndMaritalStatusReducer)
   const dispatch = useDispatch()
 
   useIonViewWillEnter(() => {
     dispatch(fetchDukcapilDetail(id))
   });
+
+  const convertReligionId = (religionId) => {
+    const filteredReligion = religions.filter(({ religion_id }) => religion_id === religionId)
+    return filteredReligion[0].religion_name
+  }
 
    if (loading) {
     return (
@@ -34,11 +37,15 @@ const DukcapilDetail = () => {
         </IonItem>  
       </IonContent></IonPage>
     )
-  } else if (error) {
+  } else if (error || errorMixState) {
     return (
       <IonPage><IonContent>
         <IonItem>
-          {JSON.stringify(error)}
+          {
+            error
+            ? JSON.stringify(error)
+            : JSON.stringify(errorMixState)
+          }
         </IonItem>  
       </IonContent></IonPage>
     ) 
@@ -63,7 +70,6 @@ const DukcapilDetail = () => {
               marginTop: '1rem',
               borderSpacing: '4px',
               borderCollapse: 'separate'
-              
             }}
           >
             <Row 
@@ -88,7 +94,7 @@ const DukcapilDetail = () => {
             />
             <Row 
               tlabel="Religion" 
-              tdata={dukcapilDetailData.religion_id} 
+              tdata={convertReligionId(dukcapilDetailData.religion_id)} 
             />
             <Row 
               tlabel="Marital Status" 
