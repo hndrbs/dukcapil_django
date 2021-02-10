@@ -1,4 +1,4 @@
-// import MessageListItem from '../components/MessageListItem';
+import DukcapilListItem from '../components/DukcapilList';
 // import { useState } from 'react';
 // import { Message, getMessages } from '../data/messages';
 import fetchDukcapil from '../store/actions'
@@ -23,10 +23,8 @@ const Dukcapil = () => {
   // const [data, setData] = useState<[]>([])
   const { dukcapilData, loading, error } = useSelector(state => state)
   const dispatch = useDispatch()
-  console.log(dukcapilData, error)
+
   useIonViewWillEnter(() => {
-    // const msgs = getMessages();
-    // setMessages(msgs);
     dispatch(fetchDukcapil())
   });
 
@@ -72,11 +70,18 @@ const Dukcapil = () => {
             </IonTitle>
           </IonToolbar>
         </IonHeader>
-        <IonItem style={{ color:"white" }}>
-         {
-           dukcapilData.length && JSON.stringify(dukcapilData)
-         }
-        </IonItem>
+        <IonList>
+          {
+            dukcapilData.length
+            ? dukcapilData.map(dukcapil => (
+                <DukcapilListItem
+                  dukcapil={dukcapil}
+                  key={dukcapil.dukcapil_data_id}
+                />
+              ))
+            : <h1>Data empty</h1>
+          }
+        </IonList>
       </IonContent>
     </IonPage>
   );

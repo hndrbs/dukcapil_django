@@ -8,7 +8,7 @@ const fetchDukcapil = () => {
       url: '/',
       method: 'GET',
     })
-      .then(data => {
+      .then(({ data }) => {
         return dispatch({
           type: 'dukcapil/setDukcapil',
           payload: data
