@@ -3,6 +3,7 @@ import { IonApp, IonRouterOutlet } from '@ionic/react';
 import { IonReactRouter } from '@ionic/react-router';
 import Home from './pages/Home';
 import ViewMessage from './pages/ViewMessage';
+import Dukcapil from './pages/Dukcapil'
 
 /* Core CSS required for Ionic components to work properly */
 import '@ionic/react/css/core.css';
@@ -23,12 +24,15 @@ import '@ionic/react/css/display.css';
 /* Theme variables */
 import './theme/variables.css';
 
-const App: React.FC = () => (
+const App = () => (
   <IonApp>
     <IonReactRouter>
       <IonRouterOutlet>
         <Route path="/" exact={true}>
-          <Redirect to="/home" />
+          <Redirect to="/dukcapil" />
+        </Route>
+        <Route path="/dukcapil" exact={true}>
+          <Dukcapil  />
         </Route>
         <Route path="/home" exact={true}>
           <Home />
