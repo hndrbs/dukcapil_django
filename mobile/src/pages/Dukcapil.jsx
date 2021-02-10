@@ -1,7 +1,7 @@
 import DukcapilListItem from '../components/DukcapilList';
 // import { useState } from 'react';
 // import { Message, getMessages } from '../data/messages';
-import fetchDukcapil from '../store/actions'
+import { fetchDukcapil } from '../store/actions'
 import {
   IonContent,
   IonHeader,
@@ -21,7 +21,7 @@ const Dukcapil = () => {
 
   // const [messages, setMessages] = useState<Message[]>([]);
   // const [data, setData] = useState<[]>([])
-  const { dukcapilData, loading, error } = useSelector(state => state)
+  const { dukcapilData, loading, error } = useSelector(state => state.reducer)
   const dispatch = useDispatch()
 
   useIonViewWillEnter(() => {

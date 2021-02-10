@@ -4,6 +4,7 @@ import { IonReactRouter } from '@ionic/react-router';
 import Home from './pages/Home';
 import ViewMessage from './pages/ViewMessage';
 import Dukcapil from './pages/Dukcapil'
+import DukcapilDetail from './pages/DukcapilDetail'
 
 /* Core CSS required for Ionic components to work properly */
 import '@ionic/react/css/core.css';
@@ -33,6 +34,9 @@ const App = () => (
         </Route>
         <Route path="/dukcapil" exact={true}>
           <Dukcapil  />
+        </Route>
+        <Route path="/dukcapil/:id" exact={true}>
+          <DukcapilDetail  />
         </Route>
         <Route path="/home" exact={true}>
           <Home />
