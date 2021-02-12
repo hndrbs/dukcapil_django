@@ -16,6 +16,7 @@ import './ModalForm.css'
 import { addDukcapil, editDukcapil } from '../store/actions'
 
 const ModalForm = ({ isOpen, dukcapil, closeModal }) => {
+  const [btnSubmitClicked, setBtnSubmitClicked] = useState(false)
   const [formValues, setFormValues] = useState({
     nik: '',
     name: '',
@@ -25,9 +26,28 @@ const ModalForm = ({ isOpen, dukcapil, closeModal }) => {
     religion_id: 0,
     marital_status: ''
   })
-  
+  const [validStatus, setValidStatus] = useState({
+    nik: false,
+    name: false,
+    maiden_name: false,
+    birth_date: false,
+    gender: false,
+    religion_id: false,
+    marital_status: false
+  })
   const dispatch = useDispatch()
   const { religions, marital_statuses } = useSelector(state => state.religionAndMaritalStatusReducer)
+
+  useEffect(() => {
+    if (dukcapil) {
+      const { dukcapil_data_id, ...clone } = dukcapil
+      setFormValues(clone)
+    }
+  }, [])
+
+  useEffect(() => {
+    validator()
+  }, [formValues])
 
   const formHandler = e => {
     setFormValues({
@@ -36,28 +56,56 @@ const ModalForm = ({ isOpen, dukcapil, closeModal }) => {
     })
   }
   
-  useEffect(() => {
-    if (dukcapil) {
-      const { dukcapil_data_id, ...clone } = dukcapil
-      setFormValues(clone)
-    }
-  }, [])
+  const validator = () => {
+    const religion_ids = religions.map(({ religion_id }) => religion_id)
+    const marital_status_descs = marital_statuses.map(({ marital_status_desc }) => marital_status_desc)
+    setValidStatus({
+      nik: formValues.nik.split("").every(char => !isNaN(char)) && formValues.nik, //there is a limitation for direct isNan
+      name: formValues.name.length > 0,
+      maiden_name: formValues.maiden_name.length > 0,
+      birth_date: new Date(formValues.birth_date).getTime() < new Date ().getTime(),
+      gender: ['male', 'female'].includes(formValues.gender),
+      religion_id: religion_ids.includes(formValues.religion_id),
+      marital_status: marital_status_descs.includes(formValues.marital_status)
+    })
+  }
 
+  const clearState = () => {
+    !dukcapil &&
+    setFormValues({
+      nik: '',
+      name: '',
+      maiden_name: '',
+      birth_date: '',
+      gender: '',
+      religion_id: 0,
+      marital_status: ''
+    })
+    setBtnSubmitClicked(false)
+  }
   const submitHandler = () => {
-    if (!dukcapil) {
-      dispatch(addDukcapil(formValues))
-    } else {
-      dispatch(editDukcapil(
-        dukcapil.dukcapil_data_id,
-        formValues
-      ))
+    setBtnSubmitClicked(true)
+    const isAllValid = Object.values(validStatus).every(bool => bool)
+    if (isAllValid) {
+      if (!dukcapil) {
+        dispatch(addDukcapil(formValues))
+      } else {
+        dispatch(editDukcapil(
+          dukcapil.dukcapil_data_id,
+          formValues
+        ))
+      }
+      setTimeout(() => {
+        closeModal()
+        // clearState()
+      }, 1000)
     }
-    setTimeout(closeModal, 1000)
   }
   return (
     <IonModal isOpen={isOpen}>
       <IonContent className="modal-content">
         <h4>{dukcapil? "Edit Dukcapil Data" : "Add dukcapil data"}</h4>
+        {!validStatus.nik  && btnSubmitClicked && <p className="valid-msg">NIK must be numbers</p>}
         <IonItem>
           <IonInput
             value={formValues.nik}
@@ -67,6 +115,7 @@ const ModalForm = ({ isOpen, dukcapil, closeModal }) => {
             onIonChange={formHandler}
           />
         </IonItem>
+        {!validStatus.name && btnSubmitClicked && <p className="valid-msg">Please fill name field</p>}
         <IonItem>
           <IonInput
             value={formValues.name}
@@ -76,6 +125,7 @@ const ModalForm = ({ isOpen, dukcapil, closeModal }) => {
             onIonChange={formHandler}
           />
         </IonItem>
+        {!validStatus.maiden_name && btnSubmitClicked && <p className="valid-msg">Please fill maiden name</p>}
         <IonItem>
           <IonInput
             value={formValues.maiden_name}
@@ -85,6 +135,7 @@ const ModalForm = ({ isOpen, dukcapil, closeModal }) => {
             onIonChange={formHandler}
           />
         </IonItem>
+        {!validStatus.birth_date && btnSubmitClicked && <p className="valid-msg">Please fill the valid birth date</p>}
         <IonItem>
           <IonInput
             value={formValues.birth_date}
@@ -93,6 +144,7 @@ const ModalForm = ({ isOpen, dukcapil, closeModal }) => {
             onIonChange={formHandler}
           />
         </IonItem>
+        {!validStatus.gender && btnSubmitClicked && <p className="valid-msg">Please choose the provided gender choices</p>}
         <IonItem>
           <IonRadioGroup
             onIonChange={formHandler}
@@ -109,6 +161,7 @@ const ModalForm = ({ isOpen, dukcapil, closeModal }) => {
             </IonItem>
           </IonRadioGroup>
         </IonItem>
+        {!validStatus.religion_id && btnSubmitClicked && <p className="valid-msg">Please choose the provided religion choices</p>}
         <IonItem>
           <IonSelect
             onIonChange={formHandler}
@@ -128,6 +181,7 @@ const ModalForm = ({ isOpen, dukcapil, closeModal }) => {
               }
             </IonSelect>
         </IonItem>
+        {!validStatus.marital_status && btnSubmitClicked && <p className="valid-msg">Please choose marital status</p>}
         <IonItem>
           <IonSelect
             onIonChange={formHandler}
@@ -149,7 +203,10 @@ const ModalForm = ({ isOpen, dukcapil, closeModal }) => {
         </IonItem>
         <div className="btn-modal-wrapper">
           <IonButton
-            onClick={closeModal}
+            onClick={() => {
+              closeModal()
+              clearState()
+            }}
           >Cancel</IonButton>
           <IonButton
             onClick={submitHandler}
