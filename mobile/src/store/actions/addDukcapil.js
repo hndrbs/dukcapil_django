@@ -1,6 +1,6 @@
 import axiosInstance from './config'
 
-const addDukcapil = (payload) => (dispatch, getState) => (
+const addDukcapil = (payload) => (dispatch, getState) => {
   axiosInstance({
     method: 'POST',
     data: payload,
@@ -20,6 +20,6 @@ const addDukcapil = (payload) => (dispatch, getState) => (
       payload: err
     })
   })
-)
+}
 
 export default addDukcapil

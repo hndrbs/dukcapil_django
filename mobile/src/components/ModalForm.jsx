@@ -8,12 +8,13 @@ import {
   IonRadioGroup,
   IonLabel,
   IonSelect,
-  IonSelectOption
+  IonSelectOption,
+  useIonViewWillEnter
 } from '@ionic/react'
 import { useState, useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import './ModalForm.css'
-import { addDukcapil, editDukcapil } from '../store/actions'
+import { addDukcapil, editDukcapil, fetchReligions, fetchMaritalStatuses } from '../store/actions'
 
 const ModalForm = ({ isOpen, dukcapil, closeModal }) => {
   const [btnSubmitClicked, setBtnSubmitClicked] = useState(false)
@@ -45,6 +46,12 @@ const ModalForm = ({ isOpen, dukcapil, closeModal }) => {
     }
   }, [])
 
+  useIonViewWillEnter(() => {
+    !religions && dispatch(fetchReligions())
+    !marital_statuses && dispatch(fetchMaritalStatuses())
+    
+  })
+
   useEffect(() => {
     validator()
   }, [formValues])
@@ -57,16 +64,16 @@ const ModalForm = ({ isOpen, dukcapil, closeModal }) => {
   }
   
   const validator = () => {
-    const religion_ids = religions.map(({ religion_id }) => religion_id)
-    const marital_status_descs = marital_statuses.map(({ marital_status_desc }) => marital_status_desc)
+    const religion_ids = religions?.map(({ religion_id }) => religion_id)
+    const marital_status_descs = marital_statuses?.map(({ marital_status_desc }) => marital_status_desc)
     setValidStatus({
       nik: formValues.nik.split("").every(char => !isNaN(char)) && formValues.nik, //there is a limitation for direct isNan
       name: formValues.name.length > 0,
       maiden_name: formValues.maiden_name.length > 0,
       birth_date: new Date(formValues.birth_date).getTime() < new Date ().getTime(),
       gender: ['male', 'female'].includes(formValues.gender),
-      religion_id: religion_ids.includes(formValues.religion_id),
-      marital_status: marital_status_descs.includes(formValues.marital_status)
+      religion_id: religion_ids?.includes(formValues.religion_id),
+      marital_status: marital_status_descs?.includes(formValues.marital_status)
     })
   }
 
@@ -170,7 +177,7 @@ const ModalForm = ({ isOpen, dukcapil, closeModal }) => {
           >
             <IonSelectOption value={0}>--select religion--</IonSelectOption>
               {
-                religions.map(religion => (
+                religions?.map(religion => (
                   <IonSelectOption
                     key={"religion" + religion.religion_id}
                     value={religion.religion_id}
@@ -190,7 +197,7 @@ const ModalForm = ({ isOpen, dukcapil, closeModal }) => {
           >
             <IonSelectOption value="">--select marital status--</IonSelectOption>
             {
-              marital_statuses.map(status => (
+              marital_statuses?.map(status => (
                 <IonSelectOption
                   value={status.marital_status_desc}
                   key={"marital status" + status.marital_status_id}

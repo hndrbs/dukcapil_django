@@ -7,6 +7,7 @@ import {
   IonItem,
   IonToolbar,
   useIonViewWillEnter,
+  IonLoading,
 } from '@ionic/react';
 import { fetchDukcapilDetail } from '../store/actions'
 import { useSelector, useDispatch } from 'react-redux'
@@ -32,9 +33,11 @@ const DukcapilDetail = () => {
    if (loading) {
     return (
       <IonPage><IonContent>
-        <IonItem>
-          loadinnnng
-        </IonItem>  
+        <IonLoading
+          isOpen={loading}
+          message={'Please wait...'}
+          duration={1200}
+        />
       </IonContent></IonPage>
     )
   } else if (error || errorMixState) {

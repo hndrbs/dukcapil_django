@@ -1,5 +1,5 @@
 import { Redirect, Route } from 'react-router-dom';
-import { IonApp, IonRouterOutlet } from '@ionic/react';
+import { IonApp, IonRouterOutlet, useIonViewWillEnter } from '@ionic/react';
 import { IonReactRouter } from '@ionic/react-router';
 import Dukcapil from './pages/Dukcapil'
 import DukcapilDetail from './pages/DukcapilDetail'
@@ -28,7 +28,7 @@ import './theme/variables.css';
 
 const App = () => {
   const dispatch = useDispatch()
-  useEffect(() => {
+  useIonViewWillEnter(() => {
     dispatch(fetchReligions())
     dispatch(fetchMaritalStatuses())
   })

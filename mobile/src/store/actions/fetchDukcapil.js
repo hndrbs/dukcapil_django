@@ -1,6 +1,7 @@
 import axiosInstance from './config'
 
 const fetchDukcapil = () => dispatch => {
+  dispatch({ type: 'dukcapil/setLoading' })
   axiosInstance({
     url: '/dukcapil/',
     method: 'GET',

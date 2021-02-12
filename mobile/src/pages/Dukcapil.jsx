@@ -11,7 +11,8 @@ import {
   useIonViewWillEnter,
   IonIcon,
   IonButton,
-  IonSearchbar
+  IonSearchbar,
+  IonLoading
 } from '@ionic/react';
 import { useEffect, useState } from 'react'
 import './Dukcapil.css';
@@ -47,9 +48,11 @@ const Dukcapil = () => {
   if (loading) {
     return (
       <IonPage><IonContent>
-        <IonItem>
-          loadinnnng
-        </IonItem>  
+         <IonLoading
+            isOpen={loading}
+            message={'Please wait...'}
+            duration={1200}
+          />
       </IonContent></IonPage>
     )
   } else if (error) {
