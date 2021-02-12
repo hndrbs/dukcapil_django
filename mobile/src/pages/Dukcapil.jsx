@@ -10,7 +10,8 @@ import {
   IonToolbar,
   useIonViewWillEnter,
   IonIcon,
-  IonButton
+  IonButton,
+  IonSearchbar
 } from '@ionic/react';
 import { useEffect, useState } from 'react'
 import './Dukcapil.css';
@@ -40,7 +41,7 @@ const Dukcapil = () => {
   const refresh = (e) => {
     setTimeout(() => {
       e.detail.complete();
-    }, 3000);
+    }, 2000);
   };
 
   if (loading) {
@@ -79,26 +80,29 @@ const Dukcapil = () => {
             </IonTitle>
           </IonToolbar>
         </IonHeader>
-        <IonButton
-          onClick={() => setShowAddModal(true)}
-          id="add-btn"
-        >
-          <IonIcon icon={addOutline}/>
-        </IonButton>
+        <div id="top-bar">
+          <IonSearchbar></IonSearchbar>
+          <IonButton
+            onClick={() => setShowAddModal(true)}
+            id="add-btn"
+          >
+            <IonIcon icon={addOutline}/>
+          </IonButton>
+        </div>
         <ModalForm
           isOpen={showAddModal}
           closeModal={() => setShowAddModal(false)}
         />
-        <IonList>
+        <IonList id="list-item">
           {
-            data.length
-            ? data.map(dukcapil => (
-                <DukcapilListItem
-                  dukcapil={dukcapil}
-                  key={dukcapil.dukcapil_data_id}
-                />
-              ))
-            : <h1>Data empty</h1>
+          data.length
+          ? data.map(dukcapil => (
+              <DukcapilListItem
+                dukcapil={dukcapil}
+                key={dukcapil.dukcapil_data_id}
+              />
+            ))
+          : <h1>Data empty</h1>
           }
         </IonList>
       </IonContent>

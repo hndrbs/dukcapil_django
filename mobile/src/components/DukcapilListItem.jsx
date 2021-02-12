@@ -17,38 +17,35 @@ const DukcapilListItem = ({ dukcapil }) => {
   const [showAlert, setShowAlert] = useState(false)
   const [showModalEdit, setShowModalEdit] = useState(false)
 
-
   return (
     <div className="item-wrapper">
       <IonItem
         routerLink={`/dukcapil/${dukcapil.dukcapil_data_id}`}
         detail={false}
       >
-      <div slot="start" className="dot dot-unread"></div>
-      <IonLabel className="ion-text-wrap">
-        <h2>
-          {dukcapil.name}
-        </h2>
-        <p>{dukcapil.nik}</p>
-        <IonNote>{dukcapil.gender}</IonNote>
-      </IonLabel>
-        <IonAlert
-          isOpen={showAlert}
-          onDidDismiss={() => setShowAlert(false)}
-          message={`are you sure you want to delete this dukcapiil with NIK ${dukcapil.nik} and name ${dukcapil.name}`}
-          buttons={[
-            {
-              text: "Sure!",
-              handler: () => {
-                dispatch(deleteDukcapil(dukcapil.dukcapil_data_id))
+        <div slot="start" className="dot dot-unread"></div>
+        <IonLabel className="ion-text-wrap">
+          <h2>{dukcapil.name}</h2>
+          <p>{dukcapil.nik}</p>
+          <IonNote>{dukcapil.gender}</IonNote>
+        </IonLabel>
+          <IonAlert
+            isOpen={showAlert}
+            onDidDismiss={() => setShowAlert(false)}
+            message={`are you sure you want to delete this dukcapiil with NIK ${dukcapil.nik} and name ${dukcapil.name}`}
+            buttons={[
+              {
+                text: "Sure !",
+                handler: () => {
+                  dispatch(deleteDukcapil(dukcapil.dukcapil_data_id))
+                }
+              },
+              {
+                text: 'No',
+                role: 'cancel'
               }
-            },
-            {
-              text: 'No',
-              role: 'cancel'
-            }
-          ]}
-        />
+            ]}
+          />
       </IonItem>
       <ModalForm
         isOpen={showModalEdit}

@@ -35,9 +35,7 @@ const ModalForm = ({ isOpen, dukcapil, closeModal }) => {
       [e.target.name]: e.target.value
     })
   }
-
-  console.log(formValues)
-
+  
   useEffect(() => {
     if (dukcapil) {
       const { dukcapil_data_id, ...clone } = dukcapil
@@ -58,106 +56,106 @@ const ModalForm = ({ isOpen, dukcapil, closeModal }) => {
   }
   return (
     <IonModal isOpen={isOpen}>
-      <IonContent>
-      <h4>{dukcapil? "Edit Dukcapil Data" : "Add dukcapil data"}</h4>
-      <IonItem>
-        <IonInput
-          value={formValues.nik}
-          type="text"
-          placeholder="enter NIK here"
-          name="nik"
-          onIonChange={formHandler}
-        />
-      </IonItem>
-      <IonItem>
-        <IonInput
-          value={formValues.name}
-          type="text"
-          placeholder="enter name here"
-          name="name"
-          onIonChange={formHandler}
-        />
-      </IonItem>
-      <IonItem>
-        <IonInput
-          value={formValues.maiden_name}
-          type="text"
-          placeholder="enter maiden name here"
-          name="maiden_name"
-          onIonChange={formHandler}
-        />
-      </IonItem>
-      <IonItem>
-        <IonInput
-          value={formValues.birth_date}
-          type="date"
-          name="birth_date"
-          onIonChange={formHandler}
-        />
-      </IonItem>
-      <IonItem>
-        <IonRadioGroup
-          onIonChange={formHandler}
-          name="gender"
-          value={formValues.gender}
-        >
-          <IonItem>
-            <IonRadio value="male" name="gender" />
-            <IonLabel>Male</IonLabel>
-          </IonItem>
-          <IonItem>
-            <IonRadio value="female" name="gender" />
-            <IonLabel>Female</IonLabel>
-          </IonItem>
-        </IonRadioGroup>
-      </IonItem>
-      <IonItem>
-        <IonSelect
-          onIonChange={formHandler}
-          name="religion_id"
-          value={formValues.religion_id}
-        >
-          <IonSelectOption value="">--select religion--</IonSelectOption>
+      <IonContent className="modal-content">
+        <h4>{dukcapil? "Edit Dukcapil Data" : "Add dukcapil data"}</h4>
+        <IonItem>
+          <IonInput
+            value={formValues.nik}
+            type="text"
+            placeholder="enter NIK here"
+            name="nik"
+            onIonChange={formHandler}
+          />
+        </IonItem>
+        <IonItem>
+          <IonInput
+            value={formValues.name}
+            type="text"
+            placeholder="enter name here"
+            name="name"
+            onIonChange={formHandler}
+          />
+        </IonItem>
+        <IonItem>
+          <IonInput
+            value={formValues.maiden_name}
+            type="text"
+            placeholder="enter maiden name here"
+            name="maiden_name"
+            onIonChange={formHandler}
+          />
+        </IonItem>
+        <IonItem>
+          <IonInput
+            value={formValues.birth_date}
+            type="date"
+            name="birth_date"
+            onIonChange={formHandler}
+          />
+        </IonItem>
+        <IonItem>
+          <IonRadioGroup
+            onIonChange={formHandler}
+            name="gender"
+            value={formValues.gender}
+          >
+            <IonItem>
+              <IonRadio value="male" name="gender" />
+              <IonLabel>Male</IonLabel>
+            </IonItem>
+            <IonItem>
+              <IonRadio value="female" name="gender" />
+              <IonLabel>Female</IonLabel>
+            </IonItem>
+          </IonRadioGroup>
+        </IonItem>
+        <IonItem>
+          <IonSelect
+            onIonChange={formHandler}
+            name="religion_id"
+            value={formValues.religion_id}
+          >
+            <IonSelectOption value={0}>--select religion--</IonSelectOption>
+              {
+                religions.map(religion => (
+                  <IonSelectOption
+                    key={"religion" + religion.religion_id}
+                    value={religion.religion_id}
+                  >
+                    <IonItem>{religion.religion_name}</IonItem>
+                  </IonSelectOption>
+                ))
+              }
+            </IonSelect>
+        </IonItem>
+        <IonItem>
+          <IonSelect
+            onIonChange={formHandler}
+            name="marital_status"
+            value={formValues.marital_status}
+          >
+            <IonSelectOption value="">--select marital status--</IonSelectOption>
             {
-              religions.map(religion => (
+              marital_statuses.map(status => (
                 <IonSelectOption
-                  key={"religion" + religion.religion_id}
-                  value={religion.religion_id}
+                  value={status.marital_status_desc}
+                  key={"marital status" + status.marital_status_id}
                 >
-                  <IonItem>{religion.religion_name}</IonItem>
+                  <IonItem>{status.marital_status_desc}</IonItem>
                 </IonSelectOption>
               ))
             }
           </IonSelect>
-      </IonItem>
-      <IonItem>
-        <IonSelect
-          onIonChange={formHandler}
-          name="marital_status"
-          value={formValues.marital_status}
-        >
-          <IonSelectOption value="">--select marital status--</IonSelectOption>
-          {
-            marital_statuses.map(status => (
-              <IonSelectOption
-                value={status.marital_status_desc}
-                key={"marital status" + status.marital_status_id}
-              >
-                <IonItem>{status.marital_status_desc}</IonItem>
-              </IonSelectOption>
-            ))
-          }
-        </IonSelect>
-      </IonItem>
-      <div className="btn-modal-wrapper">
-        <IonButton
-          onClick={closeModal}
-        >Cancel</IonButton>
-        <IonButton
-          onClick={submitHandler}
-        >Submit</IonButton>
-      </div>
-    </IonContent>
+        </IonItem>
+        <div className="btn-modal-wrapper">
+          <IonButton
+            onClick={closeModal}
+          >Cancel</IonButton>
+          <IonButton
+            onClick={submitHandler}
+          >Submit</IonButton>
+        </div>
+      </IonContent>
     </IonModal>
   )
 }

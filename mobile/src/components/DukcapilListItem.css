@@ -59,6 +59,9 @@ ion-item ion-note.md {
 .item-wrapper {
   display: flex;
   justify-content: space-between;
+  margin-bottom: 0.2rem;
+  border-color: #c9c9ca;
+  border-width: 1px;
 }
 
 .item-wrapper ion-item {
