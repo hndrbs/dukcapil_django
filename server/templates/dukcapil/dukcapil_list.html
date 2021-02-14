@@ -8,6 +8,7 @@
         <th>NIK</th>
         <th>Maiden Name</th>
         <th>Birth Date</th>
+        <th>Gender</th>
         <th>Religion</th>
         <th>Marital Status</th>
         <th>Action</th>
@@ -23,9 +24,13 @@
           <td>{{datum.gender}}</td>
           <td>{{datum.religion_id}}</td>
           <td>{{datum.marital_status}}</td>
-          <td class="d-flex justify-content-around">
-            <button class="btn btn-light">edit</button>
-            <button class="btn btn-danger">del</button>
+          <td class="d-flex justify-content-between">
+            <a href="/web/edit/{{datum.dukcapil_data_id}}">
+              <button class="btn btn-dark mr-2">edit</button>
+            </a>
+            <form class="del" action="/web/delete/{{datum.dukcapil_data_id}}" method="post">
+              <button class="btn btn-danger" type="submit">del</button>
+            </form>
           </td>
         </tr>
       {% endfor %}

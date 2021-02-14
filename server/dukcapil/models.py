@@ -40,8 +40,8 @@ class DukcapilData (models.Model):
   )
   marital_status = models.ForeignKey(
     MaritalStatus,
-    on_delete=models.CASCADE,
-    to_field='marital_status_desc'
+    on_delete=models.CASCADE
+    # to_field='marital_status_desc'
   )
 
   class Meta :

@@ -1,6 +1,26 @@
-form p {
-  background-color: aqua;
+form.real-form p {
+  display: flex;
+  flex-direction: column;
 }
-#coba {
-  color: red;
+form.real-form li {
+  list-style: none;
+  display: inline;
+  margin-right: 10px;
 }
+form.real-form {
+  width: 30rem;
+  margin-left: auto;
+  margin-right: auto;
+}
+form.real-form > button {
+  width: 10rem;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+form.real-form .errorlist {
+  display: none;
+}
+/* form.del {
+  width: 10px;
+} */

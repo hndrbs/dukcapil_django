@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.http import  HttpResponse, JsonResponse, Http404
 from .serializers import DukcapilDataSerializer, ReligionSerializer, MaritalStatusSerializer
 from .models import DukcapilData, Religion, MaritalStatus, DukcapilCheckResult
@@ -76,5 +76,25 @@ def web_dukcapil_list(request):
   return render(request, 'dukcapil/dukcapil_list.html', context)
 
 def web_add_form(request):
-  form = AddForm()
+  if request.method == 'GET':
+    form = AddForm()  
+  else:
+    form = AddForm(request.POST)
+    if form.is_valid():
+      # data = form.cleaned_data
+      form.save()
+      return redirect('dukcapil_list')
   return render(request, 'dukcapil/form.html', { 'form': form })
+  
+def web_edit_form(request, dukcapil_data_id):
+  if request.method == 'GET':
+    data = DukcapilData.objects.get(dukcapil_data_id=dukcapil_data_id)
+    form = AddForm(instance=data)
+  else:
+    form = AddForm(request.POST)
+    if form.is_valid():
+      # data = form.cleaned_data
+      form.save()
+      return redirect('dukcapil_list')
+  return render(request, 'dukcapil/form.html', { 'form': form })
+  

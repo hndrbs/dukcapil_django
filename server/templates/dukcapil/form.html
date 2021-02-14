@@ -1,11 +1,25 @@
 {% extends 'dukcapil/base.html' %}
 
 {% block content %}
-  <form action="/web/add" method="POST">
+  {% if form.errors %}
+  <div class="alert alert-danger alert-dismissible w-50 mx-auto" role="alert">
+      {% for _, value in form.errors.items %}
+        <span>
+          {{ value }}
+        </span>
+      {% endfor %}
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  {% endif %}
+  
+  <form class="real-form" action="{% url 'dukcapil_add' %}" method="POST">
     {% csrf_token %}
-    
     {{form.as_p}}  
-    <input type="submit" value="Submit">
+    <div class="d-flex justify-content-center">
+      <button class="btn btn-primary">Submit</button>
+    </div>
   </form>  
 {% endblock content %}
   
