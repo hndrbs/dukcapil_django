@@ -1,15 +1,13 @@
 from django.shortcuts import render
 from django.http import  HttpResponse, JsonResponse, Http404
 from .serializers import DukcapilDataSerializer, ReligionSerializer, MaritalStatusSerializer
-from .models import DukcapilData, Religion, MaritalStatus
+from .models import DukcapilData, Religion, MaritalStatus, DukcapilCheckResult
 from rest_framework import status, viewsets
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
 from rest_framework.parsers import JSONParser
 
-
-# Create your views here.
-
+# Rest API section
 @api_view(['GET', 'POST'])
 def dukcapilList (request):
   if request.method == 'GET':
@@ -68,3 +66,10 @@ def maritalStatusList(request):
   allMaritalStatus = MaritalStatus.objects.all()
   allMaritalStatusSerializer = MaritalStatusSerializer(allMaritalStatus, many=True)
   return JsonResponse(allMaritalStatusSerializer.data, safe=False)
+
+
+# web section
+def web_dukcapil_list(request):
+  dukcapil_data = DukcapilData.objects.all()
+  context = { 'data': dukcapil_data }
+  return render(request, 'dukcapil/dukcapil_list.html', context)
