@@ -6,7 +6,7 @@ from rest_framework import status, viewsets
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
 from rest_framework.parsers import JSONParser
-from .forms import AddForm
+from .forms import AddEditForm
 
 # Rest API section
 @api_view(['GET', 'POST'])
@@ -77,24 +77,30 @@ def web_dukcapil_list(request):
 
 def web_add_form(request):
   if request.method == 'GET':
-    form = AddForm()  
+    form = AddEditForm()  
   else:
-    form = AddForm(request.POST)
+    form = AddEditForm(request.POST)
     if form.is_valid():
       # data = form.cleaned_data
       form.save()
       return redirect('dukcapil_list')
-  return render(request, 'dukcapil/form.html', { 'form': form })
+  return render(request, 'dukcapil/form.html', { 'form': form, 'action': '/web/add/' })
   
 def web_edit_form(request, dukcapil_data_id):
+  data = DukcapilData.objects.get(dukcapil_data_id=dukcapil_data_id)
   if request.method == 'GET':
-    data = DukcapilData.objects.get(dukcapil_data_id=dukcapil_data_id)
-    form = AddForm(instance=data)
+    form = AddEditForm(instance=data)
   else:
-    form = AddForm(request.POST)
+    form = AddEditForm(request.POST, instance=data)
     if form.is_valid():
       # data = form.cleaned_data
       form.save()
       return redirect('dukcapil_list')
-  return render(request, 'dukcapil/form.html', { 'form': form })
+  return render(request, 'dukcapil/form.html', { 'form': form, 'action': '/web/edit/' + str(dukcapil_data_id) + '/'})
+
+def web_delete (request, dukcapil_data_id):
+  if request.method == 'POST':
+    data = DukcapilData.objects.get(dukcapil_data_id=dukcapil_data_id)
+    data.delete()
   
+  return redirect('dukcapil_list')

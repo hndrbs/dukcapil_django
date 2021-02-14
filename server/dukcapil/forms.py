@@ -2,7 +2,7 @@ from django import forms
 from .models import Religion, MaritalStatus, DukcapilData
 from datetime import date
 
-class AddForm(forms.ModelForm):
+class AddEditForm(forms.ModelForm):
   # name = forms.CharField(label='Name', max_length=50)
   # nik = forms.CharField(label='NIK', max_length=50)
   # maiden_name = forms.CharField(label='Maiden Name' ,max_length=50)
