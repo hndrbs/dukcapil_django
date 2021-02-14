@@ -6,6 +6,7 @@ from rest_framework import status, viewsets
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
 from rest_framework.parsers import JSONParser
+from .forms import AddForm
 
 # Rest API section
 @api_view(['GET', 'POST'])
@@ -70,6 +71,11 @@ def maritalStatusList(request):
 
 # web section
 def web_dukcapil_list(request):
+  print(request.content_type, '<<<reqqq')
   dukcapil_data = DukcapilData.objects.all()
   context = { 'data': dukcapil_data }
   return render(request, 'dukcapil/dukcapil_list.html', context)
+
+def web_add_form(request):
+  print(request, '<<<< request')
+  return render(request, 'dukcapil/form.html', { 'Form': AddForm })

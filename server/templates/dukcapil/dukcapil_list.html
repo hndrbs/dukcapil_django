@@ -1,37 +1,35 @@
 {% extends 'dukcapil/base.html' %}
 
 {% block content %}
-<table class="table">
-  <thead>
-    <tr>
-      <th>Name</th>
-      <th>NIK</th>
-      <th>Maiden Name</th>
-      <th>Birth Date</th>
-      <th>Religion</th>
-      <th>Marital Status</th>
-      <th>Action</th>
-    </tr>
-  </thead>
-  <tbody>
-    {% for datum  in data  %}
+  <table class="table tbale-stripped">
+    <thead>
       <tr>
-        <td>{{datum.name}}</td>
-        <td>{{datum.nik}}</td>
-        <td>{{datum.maiden_name}}</td>
-        <td>{{datum.birth_date}}</td>
-        <td>{{datum.religion_id}}</td>
-        <td>{{datum.marital_status}}</td>
-        <td class="d-flex justify-content-around">
-          <button class="btn btn-light">edit</button>
-          <button class="btn btn-danger">del</button>
-        </td>
+        <th>Name</th>
+        <th>NIK</th>
+        <th>Maiden Name</th>
+        <th>Birth Date</th>
+        <th>Religion</th>
+        <th>Marital Status</th>
+        <th>Action</th>
       </tr>
-    {% endfor %}
-  </tbody>
-</table>
-
-
-
+    </thead>
+    <tbody>
+      {% for datum  in data  %}
+        <tr scope="row">
+          <td>{{datum.nik}}</td>
+          <td>{{datum.name}}</td>
+          <td>{{datum.maiden_name}}</td>
+          <td>{{datum.birth_date}}</td>
+          <td>{{datum.gender}}</td>
+          <td>{{datum.religion_id}}</td>
+          <td>{{datum.marital_status}}</td>
+          <td class="d-flex justify-content-around">
+            <button class="btn btn-light">edit</button>
+            <button class="btn btn-danger">del</button>
+          </td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
 {% endblock content %}
   

@@ -1,0 +1,10 @@
+{% extends 'dukcapil/base.html' %}
+
+{% block content %}
+  <form action="" method="POST">
+    {% csrf_token %}
+    {{ Form.as_p }}
+  </form>  
+  <p>ini formmmm</p>
+{% endblock content %}
+  
