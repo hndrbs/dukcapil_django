@@ -71,11 +71,10 @@ def maritalStatusList(request):
 
 # web section
 def web_dukcapil_list(request):
-  print(request.content_type, '<<<reqqq')
   dukcapil_data = DukcapilData.objects.all()
   context = { 'data': dukcapil_data }
   return render(request, 'dukcapil/dukcapil_list.html', context)
 
 def web_add_form(request):
-  print(request, '<<<< request')
-  return render(request, 'dukcapil/form.html', { 'Form': AddForm })
+  form = AddForm()
+  return render(request, 'dukcapil/form.html', { 'form': form })

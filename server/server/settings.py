@@ -39,7 +39,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'dukcapil.apps.DukcapilConfig',
     'rest_framework',
-    'corsheaders'
+    'corsheaders',
+    'crispy_forms'
 ]
 
 MIDDLEWARE = [
@@ -55,6 +56,7 @@ MIDDLEWARE = [
 
 ROOT_URLCONF = 'server.urls'
 CORS_ORIGIN_ALLOW_ALL = True
+CRIPSY_TEMPLATE_PACK = 'bootstrap4'
 
 TEMPLATES = [
     {
