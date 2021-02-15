@@ -25,7 +25,7 @@ const ModalForm = ({ isOpen, dukcapil, closeModal }) => {
     birth_date: '',
     gender: '',
     religion_id: 0,
-    marital_status: ''
+    marital_status: 0
   })
   const [validStatus, setValidStatus] = useState({
     nik: false,
@@ -65,15 +65,15 @@ const ModalForm = ({ isOpen, dukcapil, closeModal }) => {
   
   const validator = () => {
     const religion_ids = religions?.map(({ religion_id }) => religion_id)
-    const marital_status_descs = marital_statuses?.map(({ marital_status_desc }) => marital_status_desc)
+    const marital_status_ids = marital_statuses?.map(({ marital_status_id }) => marital_status_id)
     setValidStatus({
       nik: formValues.nik.split("").every(char => !isNaN(char)) && formValues.nik, //there is a limitation for direct isNan
       name: formValues.name.length > 0,
       maiden_name: formValues.maiden_name.length > 0,
       birth_date: new Date(formValues.birth_date).getTime() < new Date ().getTime(),
-      gender: ['male', 'female'].includes(formValues.gender),
+      gender: ['Male', 'Female'].includes(formValues.gender),
       religion_id: religion_ids?.includes(formValues.religion_id),
-      marital_status: marital_status_descs?.includes(formValues.marital_status)
+      marital_status: marital_status_ids?.includes(formValues.marital_status)
     })
   }
 
@@ -86,7 +86,7 @@ const ModalForm = ({ isOpen, dukcapil, closeModal }) => {
       birth_date: '',
       gender: '',
       religion_id: 0,
-      marital_status: ''
+      marital_status: 0
     })
     setBtnSubmitClicked(false)
   }
@@ -104,13 +104,15 @@ const ModalForm = ({ isOpen, dukcapil, closeModal }) => {
       }
       setTimeout(() => {
         closeModal()
-        // clearState()
+        if (!dukcapil) { //meaning, it is an add modal form
+          clearState()
+        }
       }, 1000)
     }
   }
   return (
     <IonModal isOpen={isOpen}>
-      <IonContent className="modal-content">
+      <div className="modal-content">
         <h4>{dukcapil? "Edit Dukcapil Data" : "Add dukcapil data"}</h4>
         {!validStatus.nik  && btnSubmitClicked && <p className="valid-msg">NIK must be numbers</p>}
         <IonItem>
@@ -159,11 +161,11 @@ const ModalForm = ({ isOpen, dukcapil, closeModal }) => {
             value={formValues.gender}
           >
             <IonItem>
-              <IonRadio value="male" name="gender" />
+              <IonRadio value="Male" name="gender" />
               <IonLabel>Male</IonLabel>
             </IonItem>
             <IonItem>
-              <IonRadio value="female" name="gender" />
+              <IonRadio value="Female" name="gender" />
               <IonLabel>Female</IonLabel>
             </IonItem>
           </IonRadioGroup>
@@ -185,7 +187,7 @@ const ModalForm = ({ isOpen, dukcapil, closeModal }) => {
                     <IonItem>{religion.religion_name}</IonItem>
                   </IonSelectOption>
                 ))
-              }
+              }\
             </IonSelect>
         </IonItem>
         {!validStatus.marital_status && btnSubmitClicked && <p className="valid-msg">Please choose marital status</p>}
@@ -195,11 +197,11 @@ const ModalForm = ({ isOpen, dukcapil, closeModal }) => {
             name="marital_status"
             value={formValues.marital_status}
           >
-            <IonSelectOption value="">--select marital status--</IonSelectOption>
+            <IonSelectOption value={0}>--select marital status--</IonSelectOption>
             {
               marital_statuses?.map(status => (
                 <IonSelectOption
-                  value={status.marital_status_desc}
+                  value={status.marital_status_id}
                   key={"marital status" + status.marital_status_id}
                 >
                   <IonItem>{status.marital_status_desc}</IonItem>
@@ -211,15 +213,15 @@ const ModalForm = ({ isOpen, dukcapil, closeModal }) => {
         <div className="btn-modal-wrapper">
           <IonButton
             onClick={() => {
-              closeModal()
               clearState()
+              closeModal()
             }}
           >Cancel</IonButton>
           <IonButton
             onClick={submitHandler}
           >Submit</IonButton>
         </div>
-      </IonContent>
+      </div>
     </IonModal>
   )
 }

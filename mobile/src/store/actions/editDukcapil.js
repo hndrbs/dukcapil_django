@@ -14,6 +14,7 @@ const editDukcapil = (id, payload) => (dispatch, getState) => (
         }
         return dukcapil
       })
+      console.log({ updatedData })
       dispatch({
         type: 'dukcapil/setDukcapil',
         payload: updatedData

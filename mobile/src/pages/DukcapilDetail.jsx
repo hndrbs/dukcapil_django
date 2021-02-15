@@ -18,7 +18,7 @@ import './ViewMessage.css';
 const DukcapilDetail = () => {
   const { id } = useParams()
   const { dukcapilDetailData, loading, error } = useSelector(state => state.detailReducer)
-  const { religions, error: errorMixState } = useSelector(state => state.religionAndMaritalStatusReducer)
+  const { religions, marital_statuses, error: errorMixState } = useSelector(state => state.religionAndMaritalStatusReducer)
   const dispatch = useDispatch()
 
   useIonViewWillEnter(() => {
@@ -28,6 +28,11 @@ const DukcapilDetail = () => {
   const convertReligionId = (religionId) => {
     const filteredReligion = religions.filter(({ religion_id }) => religion_id === religionId)
     return filteredReligion[0].religion_name
+  }
+
+  const convertMaritalStatusId  = (maritalStatusId) => {
+    const filteredMaritalStatus = marital_statuses.filter(({ marital_status_id }) => marital_status_id === maritalStatusId)
+    return filteredMaritalStatus[0].marital_status_desc
   }
 
    if (loading) {
@@ -101,7 +106,7 @@ const DukcapilDetail = () => {
             />
             <Row 
               tlabel="Marital Status" 
-              tdata={dukcapilDetailData.marital_status} 
+              tdata={convertMaritalStatusId(dukcapilDetailData.marital_status)} 
             />
           </table>
           
