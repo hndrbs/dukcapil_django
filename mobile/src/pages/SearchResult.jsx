@@ -17,12 +17,21 @@ import './Dukcapil.css';
 import { useSelector, useDispatch } from 'react-redux'
 import DukcapilListItem from '../components/DukcapilListItem';
 import ModalForm from '../components/ModalForm'
+import { search } from '../store/actions'
+import { useLocation } from 'react-router-dom'
 
 const SearchResult = () => {
-  
   const [data, setData] = useState([])
   const [showAddModal, setShowAddModal] = useState(false)
   const { dukcapilData, loading, error } = useSelector(state => state.searchResultReducer)
+  const location = useLocation()
+  const dispatch = useDispatch()
+
+  useEffect(() => {
+    const nik = location.search.split("=")[1]
+    dispatch(search(nik))
+  }, [])
+
   useEffect(() => {
     if (dukcapilData) {
       setData(dukcapilData)

@@ -18,9 +18,10 @@ import { useEffect, useState } from 'react'
 import './Dukcapil.css';
 import { useSelector, useDispatch } from 'react-redux'
 import DukcapilListItem from '../components/DukcapilListItem';
-import { fetchDukcapil, search } from '../store/actions'
+import { fetchDukcapil } from '../store/actions'
 import { addOutline } from 'ionicons/icons'
 import ModalForm from '../components/ModalForm'
+import Error from '../components/Error'
 import { useHistory } from 'react-router-dom'
 
 const Dukcapil = () => {
@@ -45,6 +46,7 @@ const Dukcapil = () => {
   }, [dukcapilData])
 
   const refresh = (e) => {
+    dispatch(fetchDukcapil())
     setTimeout(() => {
       e.detail.complete();
     }, 2000);
@@ -60,28 +62,28 @@ const Dukcapil = () => {
 
   const onSearch = () => {
     if (nik.isValid && nik.value.length) {
-      dispatch(search(nik.value))
-      history.push('/search')
+      history.push(`/search/?nik=${nik.value}`)
     }
   }
 
   if (loading) {
     return (
       <IonPage><IonContent>
-         <IonLoading
-            isOpen={loading}
-            message={'Please wait...'}
-            duration={1200}
-          />
+        <IonLoading
+          isOpen={loading}
+          message={'Please wait...'}
+          duration={1200}
+        />
       </IonContent></IonPage>
     )
   } else if (error) {
     return (
-      <IonPage><IonContent>
-        <IonItem>
-          {JSON.stringify(error)}
-        </IonItem>  
-      </IonContent></IonPage>
+      <IonPage>
+        <Error
+          message={error.message}
+          refreshFunction={refresh}
+        />
+      </IonPage>
     ) 
   }
   return (
@@ -136,7 +138,7 @@ const Dukcapil = () => {
                 key={dukcapil.dukcapil_data_id}
               />
             ))
-          : <h1>Data empty</h1>
+          : <h1 className="warning">Data empty</h1>
           }
         </IonList>
       </IonContent>

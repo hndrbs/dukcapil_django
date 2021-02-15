@@ -4,14 +4,16 @@ import {
   IonContent,
   IonHeader,
   IonPage,
-  IonItem,
   IonToolbar,
   useIonViewWillEnter,
   IonLoading,
+  IonRefresher,
+  IonRefresherContent
 } from '@ionic/react';
 import { fetchDukcapilDetail } from '../store/actions'
 import { useSelector, useDispatch } from 'react-redux'
 import Row from '../components/Row' 
+import Error from '../components/Error'
 import { useParams } from 'react-router';
 
 const DukcapilDetail = () => {
@@ -34,7 +36,14 @@ const DukcapilDetail = () => {
     return filteredMaritalStatus[0].marital_status_desc
   }
 
-   if (loading) {
+  const refresh = (e) => {
+    dispatch(fetchDukcapilDetail(id))
+    setTimeout(() => {
+      e.detail.complete();
+    }, 2000);
+  }
+
+  if (loading) {
     return (
       <IonPage><IonContent>
         <IonLoading
@@ -46,15 +55,12 @@ const DukcapilDetail = () => {
     )
   } else if (error || errorMixState) {
     return (
-      <IonPage><IonContent>
-        <IonItem>
-          {
-            error
-            ? JSON.stringify(error)
-            : JSON.stringify(errorMixState)
-          }
-        </IonItem>  
-      </IonContent></IonPage>
+      <IonPage>
+        <Error
+          message={error.message || errorMixState.message}
+          refreshFunction={refresh}
+        />
+      </IonPage>
     ) 
   }
 
@@ -69,6 +75,9 @@ const DukcapilDetail = () => {
       </IonHeader>
 
       <IonContent fullscreen>
+        <IonRefresher slot="fixed" onIonRefresh={refresh}>
+          <IonRefresherContent></IonRefresherContent>
+        </IonRefresher>
         {dukcapilDetailData ? (
           <table
             style={{

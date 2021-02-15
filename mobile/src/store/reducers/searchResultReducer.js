@@ -1,6 +1,6 @@
 const initState = {
   dukcapilData: null,
-  loading: false,
+  loading: true,
   error: null
 }
 
