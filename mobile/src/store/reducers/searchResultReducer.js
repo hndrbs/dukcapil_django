@@ -4,17 +4,17 @@ const initState = {
   error: null
 }
 
-const dukcapilReducer = (state=initState, action) => {
+const searchResultReducer = (state=initState, action) => {
   switch (action.type) {
-    case 'dukcapil/setDukcapil':
+    case 'searchResult/setDukcapil':
       return {...state, dukcapilData: action.payload, error: null, loading: false}
-    case 'dukcapil/setLoading':
+    case 'searchResult/setLoading':
       return {...state, loading: true}
-    case 'dukcapil/setError':
+    case 'searchResult/setError':
       return {...state, loading: false, error: action.payload}
     default:
-      return state
+      return initState
   }
 }
 
-export default dukcapilReducer
+export default searchResultReducer

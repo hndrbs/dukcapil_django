@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import DukcapilData, Religion, MaritalStatus
+from .models import DukcapilData, Religion, MaritalStatus, DukcapilCheckResult
 # , Religion, MaritalStatus
 
 class DukcapilDataSerializer(serializers.ModelSerializer):
@@ -16,3 +16,8 @@ class MaritalStatusSerializer(serializers.ModelSerializer):
   class Meta:
     model = MaritalStatus
     fields = ['marital_status_id', 'marital_status_desc']
+
+class DukcapilCheckResultSerializer(serializers.ModelSerializer):
+  class Meta:
+    model = DukcapilCheckResult
+    fields = '__all__'

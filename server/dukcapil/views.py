@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from django.http import  HttpResponse, JsonResponse, Http404
-from .serializers import DukcapilDataSerializer, ReligionSerializer, MaritalStatusSerializer
+from .serializers import DukcapilDataSerializer, ReligionSerializer, MaritalStatusSerializer, DukcapilCheckResultSerializer
 from .models import DukcapilData, Religion, MaritalStatus, DukcapilCheckResult
 from rest_framework import status, viewsets
 from rest_framework.response import Response
@@ -55,7 +55,6 @@ def dukcapilDetail (request, dukcapil_data_id):
     oneDukcapil.delete()
     return JsonResponse(copyOfDukcapil.data, safe=False)
 
-
 @api_view(['GET'])
 def religionList(request):
   religions = Religion.objects.all()
@@ -67,6 +66,34 @@ def maritalStatusList(request):
   allMaritalStatus = MaritalStatus.objects.all()
   allMaritalStatusSerializer = MaritalStatusSerializer(allMaritalStatus, many=True)
   return JsonResponse(allMaritalStatusSerializer.data, safe=False)
+
+@api_view(['GET', 'POST'])
+def searchNik(request):
+  if request.method == 'GET':
+    nik = request.GET.get('nik')
+  else:
+    nik = JSONParser().parse(request)['nik']
+  
+  try:
+    dukcapil = DukcapilData.objects.get(nik=str(nik))
+    dukcapil_serializer = DukcapilDataSerializer(dukcapil)
+    check_serializer = DukcapilCheckResultSerializer(data={
+      'nik': nik,
+      'check_status': 'Found'
+    })
+    if (check_serializer.is_valid()):
+      check_serializer.save()
+    return JsonResponse(dukcapil_serializer.data, safe=False, status=status.HTTP_200_OK)
+  except:
+    dukcapil = DukcapilData.objects.get(nik=str(nik))
+    check_serializer = DukcapilCheckResultSerializer(data={
+      'nik': nik,
+      'check_status': 'Not Found'
+    })
+    if (check_serializer.is_valid()):
+      check_serializer.save()
+    return JsonResponse(data={'message': 'not found'}, status=status.HTTP_404_NOT_FOUND)
+    
 
 
 # web section

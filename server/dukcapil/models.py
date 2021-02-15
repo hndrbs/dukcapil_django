@@ -57,3 +57,6 @@ class DukcapilCheckResult (models.Model):
     ('Found', 'Found'), ('Not Found', 'Not Found')
   ])
   nik = models.CharField(max_length=50)
+
+  def __str__(self):
+      return str((self.nik, self.check_status))

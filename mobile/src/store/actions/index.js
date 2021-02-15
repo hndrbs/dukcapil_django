@@ -5,6 +5,7 @@ import fetchReligions from './fetchReligions'
 import fetchDukcapil from './fetchDukcapil'
 import editDukcapil from './editDukcapil'
 import addDukcapil from './addDukcapil'
+import search from './search'
 
 export {
   fetchMaritalStatuses,
@@ -13,5 +14,6 @@ export {
   fetchDukcapil,
   deleteDukcapil,
   editDukcapil,
-  addDukcapil
+  addDukcapil,
+  search
 }

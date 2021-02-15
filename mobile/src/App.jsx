@@ -3,8 +3,8 @@ import { IonApp, IonRouterOutlet, useIonViewWillEnter } from '@ionic/react';
 import { IonReactRouter } from '@ionic/react-router';
 import Dukcapil from './pages/Dukcapil'
 import DukcapilDetail from './pages/DukcapilDetail'
+import SearchResult from './pages/SearchResult'
 import { useDispatch } from 'react-redux'
-import { useEffect } from 'react'
 import { fetchReligions, fetchMaritalStatuses } from './store/actions'
 
 /* Core CSS required for Ionic components to work properly */
@@ -42,6 +42,9 @@ const App = () => {
           </Route>
           <Route path="/dukcapil" exact={true}>
             <Dukcapil  />
+          </Route>
+          <Route path="/search" exact={true}>
+            <SearchResult />
           </Route>
           <Route path="/dukcapil/:id" exact={true}>
             <DukcapilDetail  />

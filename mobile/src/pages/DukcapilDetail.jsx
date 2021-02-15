@@ -13,7 +13,6 @@ import { fetchDukcapilDetail } from '../store/actions'
 import { useSelector, useDispatch } from 'react-redux'
 import Row from '../components/Row' 
 import { useParams } from 'react-router';
-import './ViewMessage.css';
 
 const DukcapilDetail = () => {
   const { id } = useParams()
