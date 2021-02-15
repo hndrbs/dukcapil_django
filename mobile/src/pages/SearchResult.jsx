@@ -10,13 +10,15 @@ import {
   IonToolbar,
   IonBackButton,
   IonButtons,
-  IonLoading
+  IonLoading,
+  useIonViewWillEnter
 } from '@ionic/react';
 import { useEffect, useState } from 'react'
 import './Dukcapil.css';
 import { useSelector, useDispatch } from 'react-redux'
 import DukcapilListItem from '../components/DukcapilListItem';
 import ModalForm from '../components/ModalForm'
+import Error from '../components/Error'
 import { search } from '../store/actions'
 import { useLocation } from 'react-router-dom'
 
@@ -25,12 +27,12 @@ const SearchResult = () => {
   const [showAddModal, setShowAddModal] = useState(false)
   const { dukcapilData, loading, error } = useSelector(state => state.searchResultReducer)
   const location = useLocation()
+  const nik = location.search.split("=")[1]
   const dispatch = useDispatch()
 
-  useEffect(() => {
-    const nik = location.search.split("=")[1]
+  useIonViewWillEnter(() => {
     dispatch(search(nik))
-  }, [])
+  })
 
   useEffect(() => {
     if (dukcapilData) {
@@ -39,12 +41,13 @@ const SearchResult = () => {
   }, [dukcapilData])
 
   const refresh = (e) => {
+    dispatch(search(nik))
     setTimeout(() => {
       e.detail.complete();
     }, 2000);
-  };
+  }
 
-  if (loading) {
+  if (loading && !dukcapilData) {
     return (
       <IonPage><IonContent>
          <IonLoading
@@ -56,11 +59,12 @@ const SearchResult = () => {
     )
   } else if (error) {
     return (
-      <IonPage><IonContent>
-        <IonItem>
-          {JSON.stringify(error)}
-        </IonItem>  
-      </IonContent></IonPage>
+      <IonPage>
+        <Error
+          message={error.message}
+          refreshFunction={refresh}
+        />
+      </IonPage>
     ) 
   }
   return (
@@ -76,7 +80,6 @@ const SearchResult = () => {
         <IonRefresher slot="fixed" onIonRefresh={refresh}>
           <IonRefresherContent></IonRefresherContent>
         </IonRefresher>
-
         <IonHeader collapse="condense">
           <IonToolbar>
             <IonTitle size="large">

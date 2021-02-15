@@ -14,7 +14,7 @@ import { fetchDukcapilDetail } from '../store/actions'
 import { useSelector, useDispatch } from 'react-redux'
 import Row from '../components/Row' 
 import Error from '../components/Error'
-import { useParams } from 'react-router';
+import { useParams } from 'react-router-dom';
 
 const DukcapilDetail = () => {
   const { id } = useParams()
@@ -69,7 +69,7 @@ const DukcapilDetail = () => {
       <IonHeader translucent>
         <IonToolbar>
           <IonButtons>
-            <IonBackButton text="Data Kependudukan" defaultHref="/dukcapil"></IonBackButton>
+            <IonBackButton text="Data Kependudukan" ></IonBackButton>
           </IonButtons>
         </IonToolbar>
       </IonHeader>
