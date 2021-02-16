@@ -18,8 +18,12 @@ const DukcapilListItem = ({ dukcapil }) => {
   const [showModalEdit, setShowModalEdit] = useState(false)
 
   return (
-    <div className="item-wrapper">
+    <IonItem 
+      className="item-wrapper"
+      color="light"
+    >
       <IonItem
+        color="light"
         routerLink={`/dukcapil/${dukcapil.dukcapil_data_id}`}
         detail={false}
       >
@@ -53,16 +57,20 @@ const DukcapilListItem = ({ dukcapil }) => {
         dukcapil={dukcapil}
       />
     <span className="icon">
-      <IonIcon 
+      <IonIcon
+        size="small"
+        color="danger" 
         icon={trashBinOutline}
         onClick={() => setShowAlert(true)}
       />
-      <IonIcon 
+      <IonIcon
+        size="small"
+        color="primary"
         icon={pencil}
         onClick={() => setShowModalEdit(true)}
       />
     </span>
-    </div>
+    </IonItem>
   );
 };
 

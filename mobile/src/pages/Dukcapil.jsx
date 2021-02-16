@@ -116,7 +116,7 @@ const Dukcapil = () => {
           ></IonSearchbar>
           <IonButton
             onClick={onSearch}
-            color="light"
+            color="dark"
           >
             Search
           </IonButton>

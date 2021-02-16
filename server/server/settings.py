@@ -40,7 +40,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'dukcapil.apps.DukcapilConfig',
     'rest_framework',
-    'corsheaders'
+    'corsheaders',
+    'pyodbc'
 ]
 
 MIDDLEWARE = [
