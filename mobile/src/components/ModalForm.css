@@ -1,0 +1,23 @@
+ion-item ion-radio-group {
+  display: flex;
+  justify-content: space-around;
+  width: 100%;
+}
+
+ion-radio-group ion-item ion-radio {
+  margin-right: 10px;
+  margin-left: 20px;
+}
+
+ion-modal > ion-item {
+  width: 80%;
+}
+
+.btn-modal-wrapper {
+  display: flex;
+  justify-content: center;
+}
+
+ion-content.modal-content h4, ion-content.modal-content > ion-item{
+  padding: 0.5rem;
+}

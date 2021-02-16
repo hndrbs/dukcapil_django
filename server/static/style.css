@@ -1,0 +1,23 @@
+form.real-form p {
+  display: flex;
+  flex-direction: column;
+}
+form.real-form li {
+  list-style: none;
+  display: inline;
+  margin-right: 10px;
+}
+form.real-form {
+  width: 30rem;
+  margin-left: auto;
+  margin-right: auto;
+}
+form.real-form > button {
+  width: 10rem;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+form.real-form .errorlist {
+  display: none;
+}

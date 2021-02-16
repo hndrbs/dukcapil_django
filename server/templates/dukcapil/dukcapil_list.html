@@ -1,0 +1,41 @@
+{% extends 'dukcapil/base.html' %}
+
+{% block content %}
+  <table class="table table-stripped">
+    <thead>
+      <tr>
+        <th>NIK</th>
+        <th>Name</th>
+        <th>Maiden Name</th>
+        <th>Birth Date</th>
+        <th>Gender</th>
+        <th>Religion</th>
+        <th>Marital Status</th>
+        <th>Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for datum  in data  %}
+        <tr scope="row">
+          <td>{{datum.nik}}</td>
+          <td>{{datum.name}}</td>
+          <td>{{datum.maiden_name}}</td>
+          <td>{{datum.birth_date}}</td>
+          <td>{{datum.gender}}</td>
+          <td>{{datum.religion_id}}</td>
+          <td>{{datum.marital_status}}</td>
+          <td class="d-flex justify-content-between">
+            <a href="/web/edit/{{datum.dukcapil_data_id}}">
+              <button class="btn btn-dark mr-2">edit</button>
+            </a>
+            <form class="del" action="/web/delete/{{datum.dukcapil_data_id}}/" method="post">
+              {% csrf_token %}
+              <button class="btn btn-danger" type="submit">del</button>
+            </form>
+          </td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+{% endblock content %}
+  
