@@ -1,11 +1,9 @@
-import { Redirect, Route } from 'react-router-dom';
 import { IonApp, IonRouterOutlet, useIonViewWillEnter } from '@ionic/react';
-import { IonReactRouter } from '@ionic/react-router';
-import Dukcapil from './pages/Dukcapil'
-import DukcapilDetail from './pages/DukcapilDetail'
-import SearchResult from './pages/SearchResult'
-import { useDispatch } from 'react-redux'
 import { fetchReligions, fetchMaritalStatuses } from './store/actions'
+import { Dukcapil, DukcapilDetail, SearchResult } from './pages'
+import { Redirect, Route } from 'react-router-dom';
+import { IonReactRouter } from '@ionic/react-router';
+import { useDispatch } from 'react-redux'
 
 /* Core CSS required for Ionic components to work properly */
 import '@ionic/react/css/core.css';
@@ -42,13 +40,13 @@ const App = () => {
             <Redirect to="/dukcapil" />
           </Route>
           <Route path="/dukcapil" exact={true}>
-            <Dukcapil  />
+            <Dukcapil />
           </Route>
           <Route path="/search" exact={true}>
             <SearchResult />
           </Route>
           <Route path="/dukcapil/:id" exact={true}>
-            <DukcapilDetail  />
+            <DukcapilDetail />
           </Route>
         </IonRouterOutlet>
       </IonReactRouter>

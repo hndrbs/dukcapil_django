@@ -1,7 +1,6 @@
 import {
   IonContent,
   IonHeader,
-  IonItem,
   IonList,
   IonPage,
   IonRefresher,
@@ -14,15 +13,13 @@ import {
   IonSearchbar,
   IonLoading
 } from '@ionic/react';
-import { useEffect, useState } from 'react'
 import './Dukcapil.css';
+import { useEffect, useState } from 'react'
+import { DukcapilListItem, ModalForm, Error } from '../components'
 import { useSelector, useDispatch } from 'react-redux'
-import DukcapilListItem from '../components/DukcapilListItem';
 import { fetchDukcapil } from '../store/actions'
-import { addOutline } from 'ionicons/icons'
-import ModalForm from '../components/ModalForm'
-import Error from '../components/Error'
 import { useHistory } from 'react-router-dom'
+import { addOutline } from 'ionicons/icons'
 
 const Dukcapil = () => {
   const history = useHistory()

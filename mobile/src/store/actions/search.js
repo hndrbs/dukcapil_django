@@ -11,7 +11,10 @@ const search = nik => dispatch => {
       })
     })
     .catch(err => {
-      console.log({ err })
+       dispatch({
+        type: 'searchResult/setDukcapil',
+        payload: err
+      })
     })
 }
 

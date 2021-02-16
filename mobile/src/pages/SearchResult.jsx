@@ -1,7 +1,6 @@
 import {
   IonContent,
   IonHeader,
-  IonItem,
   IonList,
   IonPage,
   IonRefresher,
@@ -13,14 +12,12 @@ import {
   IonLoading,
   useIonViewWillEnter
 } from '@ionic/react';
-import { useEffect, useState } from 'react'
 import './Dukcapil.css';
+import { DukcapilListItem, ModalForm, Error } from '../components'
 import { useSelector, useDispatch } from 'react-redux'
-import DukcapilListItem from '../components/DukcapilListItem';
-import ModalForm from '../components/ModalForm'
-import Error from '../components/Error'
-import { search } from '../store/actions'
 import { useLocation } from 'react-router-dom'
+import { useEffect, useState } from 'react'
+import { search } from '../store/actions'
 
 const SearchResult = () => {
   const [data, setData] = useState([])
@@ -100,7 +97,7 @@ const SearchResult = () => {
                 key={dukcapil.dukcapil_data_id}
               />
             ))
-          : <h1 className="warning">Data empty</h1>
+          : <h1 className="warning">Not Found</h1>
           }
         </IonList>
       </IonContent>

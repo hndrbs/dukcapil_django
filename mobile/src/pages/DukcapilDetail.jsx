@@ -12,8 +12,7 @@ import {
 } from '@ionic/react';
 import { fetchDukcapilDetail } from '../store/actions'
 import { useSelector, useDispatch } from 'react-redux'
-import Row from '../components/Row' 
-import Error from '../components/Error'
+import { Row, Error } from '../components'
 import { useParams } from 'react-router-dom';
 
 const DukcapilDetail = () => {
