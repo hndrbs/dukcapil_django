@@ -94,8 +94,6 @@ def searchNik(request):
       check_serializer.save()
     return JsonResponse(data={'message': 'not found'}, status=status.HTTP_404_NOT_FOUND)
     
-
-
 # web section
 def web_dukcapil_list(request):
   dukcapil_data = DukcapilData.objects.all()

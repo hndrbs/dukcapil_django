@@ -84,6 +84,16 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': BASE_DIR / 'db.sqlite3',
+#         'ENGINE': 'sql_server.pyodbc',
+#         'NAME': 'DukcapilDB',
+#         # 'USER': 'HNDRBS\SQLEXPRESS',
+#         # 'PASSWORD': '',
+#         'HOST': 'HNDRBS\SQLEXPRESS',
+#         'PORT': '',
+# 
+#         'OPTIONS': {
+#             'driver': 'ODBC Driver 13 for SQL Server',
+#         },
     }
 }
 
